@@ -1,10 +1,10 @@
-ASM_NAME= sample1
-OBJS= $(ASM_NAME).o main.o
-OUTPUT_NAME= exec
+ASM_NAME = sample1
+OBJS = $(ASM_NAME).o main.o
+OUTPUT_NAME = exec
 
 # تنظیمات مخصوص معماری ARM64
 CC = clang
-AS = as
+AS = clang  # استفاده از clang برای کامپایل اسمبلی
 CFLAGS = -target aarch64-linux-gnu -c
 LDFLAGS = -target aarch64-linux-gnu
 
@@ -25,7 +25,7 @@ $(OUTPUT_NAME): $(OBJS)
 
 # کامپایل اسمبلی به فایل شیء
 %.o: %.s
-	$(AS) -o $@ $<
+	$(CC) -target aarch64-linux-gnu -c $< -o $@
 
 # کامپایل C به فایل شیء
 %.o: %.c
