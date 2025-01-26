@@ -1,0 +1,35 @@
+# تنظیمات پایه
+CC = gcc
+ASM = nasm
+CFLAGS = -Wall -g
+ASMFLAGS = -f elf64
+GIT_URL = https://github.com/mrz844/ARM_PRO.git
+TARGET_DIR = /path/to/your/specific/directory
+
+# هدف پیش‌فرض (اجرای کامپایل و ساخت)
+all: run_program
+
+# ساخت برنامه C
+run_program: program.c
+	$(CC) $(CFLAGS) program.c -o program
+
+# اجرای برنامه
+run: run_program
+	./program
+
+# هدف برای کلون کردن مخزن Git و برگشت به دایرکتوری مشخص
+git_clone:
+	# رفتن به دایرکتوری والد
+	cd $(TARGET_DIR)/.. && \
+	# کلون کردن پروژه Git
+	git clone $(GIT_URL) && \
+	# برگشت به دایرکتوری اصلی
+	cd -
+
+# هدف برای جابجایی به پوشه پروژه Git
+cd_project:
+	cd ARM_PRO && ls
+
+# هدف برای حذف فایل‌ها
+clean:
+	rm -f program

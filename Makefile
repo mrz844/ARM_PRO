@@ -3,30 +3,33 @@ OBJS= $(ASM_NAME).o main.o
 OUTPUT_NAME= exec
 
 # ساخت پروژه
-build: $(OUTPUT_NAME).exe
+build: $(OUTPUT_NAME)
 
 # پاکسازی فایل‌های موقت
 clean:
-	@del /f $(OUTPUT_NAME).exe *.o 2>nul || true
+	rm -f $(OUTPUT_NAME) *.o
 
 # اجرای برنامه
-run: $(OUTPUT_NAME).exe
-	@.\$(OUTPUT_NAME).exe
+run: $(OUTPUT_NAME)
+	./$(OUTPUT_NAME)
 
 # لینک فایل‌های شیء و ساخت فایل اجرایی
-$(OUTPUT_NAME).exe: $(OBJS)
-	@gcc -o $(OUTPUT_NAME).exe $(OBJS)
+$(OUTPUT_NAME): $(OBJS)
+	clang -o $(OUTPUT_NAME) $(OBJS)
 
 # کامپایل اسمبلی به فایل شیء
 %.o: %.s
-	@nasm -f win64 $< -o $@
+	as -o $@ $<
 
 # کامپایل C به فایل شیء
 %.o: %.c
-	@gcc -c $< -o $@
+	clang -c $< -o $@
 
 # افزودن و پوش کردن تغییرات به Git
 push:
 	@git add .
 	@git commit -m "Auto-commit from Makefile"
 	@git push
+
+pull:
+	@git pull

@@ -1,6 +1,5 @@
 .global add_value
-.type add_value, %function
-
 add_value:
-    ADD R0, R0, #5    // مقدار ورودی را ۵ واحد افزایش می‌دهد
-    BX LR             // بازگشت به تابع فراخوان
+    add r0, r0, #5      @ به مقدار ورودی ۵ اضافه می‌کند
+    bx lr                @ بازگشت به تابع C
+	
