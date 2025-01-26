@@ -24,3 +24,9 @@ $(OUTPUT_NAME).exe: $(OBJS)
 # کامپایل C به فایل شیء
 %.o: %.c
 	@gcc -c $< -o $@
+
+# افزودن و پوش کردن تغییرات به Git
+push:
+	@git add .
+	@git commit -m "Auto-commit from Makefile"
+	@git push
