@@ -1,35 +1,24 @@
-ASM_NAME= sample1
-OBJS= $(ASM_NAME).o main.o
-OUTPUT_NAME= exec
-
-# تنظیمات مخصوص معماری ARM64
-CC = clang
-AS = as
-CFLAGS = -target aarch64-linux-gnu -c
-LDFLAGS = -target aarch64-linux-gnu
+ASM_NAME = sample1
+OBJS = $(ASM_NAME).o main.o
+OUTPUT_NAME = exec
 
 # ساخت پروژه
 build: $(OUTPUT_NAME)
 
-# پاکسازی فایل‌های موقت
 clean:
-	rm -f $(OUTPUT_NAME) *.o
+    rm -f $(OUTPUT_NAME) *.o
 
-# اجرای برنامه
 run: $(OUTPUT_NAME)
-	./$(OUTPUT_NAME)
+    ./$(OUTPUT_NAME)
 
-# لینک فایل‌های شیء و ساخت فایل اجرایی
 $(OUTPUT_NAME): $(OBJS)
-	$(CC) -o $(OUTPUT_NAME) $(OBJS) $(LDFLAGS)
+    clang -o $(OUTPUT_NAME) $(OBJS)
 
-# کامپایل اسمبلی به فایل شیء
 %.o: %.s
-	$(AS) -o $@ $<
+    clang -target aarch64-linux-gnu -c $< -o $@
 
-# کامپایل C به فایل شیء
 %.o: %.c
-	$(CC) $(CFLAGS) -o $@ $<
+    clang -c -target aarch64-linux-gnu $< -o $@
 
 # افزودن و پوش کردن تغییرات به Git
 push:
